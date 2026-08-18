@@ -1,4 +1,4 @@
-﻿import streamlit as st
+import streamlit as st
 import pandas as pd
 import plotly.express as px
 import os
@@ -58,7 +58,29 @@ if 'Decision_Pendiente' not in df.columns:
     df['Decision_Pendiente'] = 'Por definir'
 
 # --- TABS ---
-tab1, tab2, tab3, tab4 = st.tabs(["01 Teoría de Cambio", "02 Diagnóstico", "03 Iniciativa", "04 Matriz MEL"])
+tab0, tab1, tab2, tab3, tab4 = st.tabs(["00 FunLuker en acción", "01 Teoría de Cambio", "02 Diagnóstico", "03 Iniciativa", "04 Matriz MEL"])
+
+# ----------------------------
+# 0. FUNLUKER EN ACCIÓN
+# ----------------------------
+with tab0:
+    st.header("FunLuker en acción")
+    st.markdown("""
+    Este escenario exige actuar con solidaridad, pero también con prudencia. La Fundación Luker no debe partir de una oferta predeterminada de recursos sino de una comprensión rigurosa de las necesidades y de la respuesta que ya están adelantando las autoridades, las entidades de socorro y otras organizaciones. El propósito inicial será, por tanto, entender antes de comprometer.
+    
+    ### 2. Objetivo del plan
+    • Contribuir a la atención y posterior recuperación de Manizales y Caldas frente a las afectaciones ocasionadas por el sismo del 10 de agosto de 2026, mediante una respuesta focalizada, ágil y complementaria a la acción pública, comunitaria y privada, basada en necesidades verificadas y en las capacidades de Fundación Luker y sus aliados.
+    
+    Durante esta primera etapa el énfasis estará en diagnosticar, priorizar y articular, evitando generar expectativas de apoyo económico, reconstrucción o intervención antes de contar con información técnica suficiente. La Fundación buscará concentrarse en ámbitos en los que tenga vínculos, capacidades o posibilidades reales de generar valor y no en intentar responder de manera generalizada a todas las necesidades de la emergencia.
+    
+    ### 3. Principios para la actuación
+    La respuesta de Fundación Luker se orientará por cinco criterios.
+    1. **Información antes que intervención.** Ninguna solicitud deberá convertirse automáticamente en un compromiso. Cada frente deberá verificar la situación, dimensionar la necesidad y presentar alternativas de respuesta.
+    2. **Complementariedad.** La Fundación deberá coordinarse con el Puesto de Mando Unificado, Alcaldía de Manizales, Gobernación de Caldas y las autoridades sectoriales correspondientes, procurando cubrir brechas y no duplicar acciones.
+    3. **Focalización.** Los recursos disponibles son limitados frente a la magnitud de la emergencia. Será necesario seleccionar intervenciones en las cuales el aporte de la Fundación pueda ser concreto y significativo.
+    4. **Protección de la vida y continuidad de servicios esenciales.** En la priorización tendrán mayor peso las situaciones relacionadas con seguridad de las personas, niños y jóvenes, atención en salud y necesidades humanitarias inmediatas.
+    5. **Comunicación prudente.** Mientras se realiza el diagnóstico, la comunicación institucional deberá señalar que Fundación Luker está evaluando posibles alternativas de apoyo. La identificación o visita a una institución no implicará un compromiso de financiación o intervención.
+    """)
 
 # ----------------------------
 # 1. TEORÍA DE CAMBIO
