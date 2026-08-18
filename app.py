@@ -1,4 +1,4 @@
-﻿import streamlit as st
+import streamlit as st
 import pandas as pd
 import plotly.express as px
 import os
@@ -59,7 +59,7 @@ if 'Evidencia_Diagnostico' not in df.columns:
 if 'Decision_Pendiente' not in df.columns:
     df['Decision_Pendiente'] = 'Por definir'
 
-tab1, tab2, tab3, tab4 = st.tabs(["01 Teoría de Cambio", "02 Diagnóstico", "03 Registro de Ayudas", "04 Matriz MEL"])
+tab1, tab2, tab3, tab4 = st.tabs(["01 Teoría de Cambio", "02 Diagnóstico", "03 Registro de Iniciativas", "04 Matriz MEL"])
 
 with tab1:
     st.header("Teoría de Cambio y Objetivos MEL")
@@ -98,7 +98,7 @@ with tab2:
         st.plotly_chart(fig_bar, use_container_width=True)
 
 with tab3:
-    st.header("Registro de Ayudas")
+    st.header("Registro de Iniciativas")
     with st.expander("+ Registrar Nueva Iniciativa", expanded=False):
         with st.form("registro_form"):
             st.markdown("Completa los datos según el protocolo del plan preliminar:")
