@@ -8,16 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/meta-fl/juntosreconstruimos.git"
+    "url": "git+https://github.com/meta-fl/juntosrecontruimos.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/meta-fl/juntosreconstruimos/issues"
+    "url": "https://github.com/meta-fl/juntosrecontruimos/issues"
   },
-  "homepage": "https://github.com/meta-fl/juntosreconstruimos#readme",
+  "homepage": "https://github.com/meta-fl/juntosrecontruimos#readme",
   "dependencies": {
     "next": "^16.3.1",
     "react": "^19.2.8",
