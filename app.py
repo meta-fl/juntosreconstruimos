@@ -12,17 +12,23 @@ custom_css = """
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap');
     
-    html, body, [class*="css"] {
-        font-family: 'Inter', sans-serif;
-        color: #2B2620;
-    }
+    html, body, [class*="css"] { font-family: 'Inter', sans-serif; color: #2B2620; }
     .stApp { background-color: #EDE8DE; }
     h1, h2, h3 { font-family: 'Fraunces', serif !important; color: #2B1B11 !important; }
     h1 { font-size: clamp(30px,4.6vw,50px) !important; font-weight: 600 !important; }
     
-    .stTabs [data-baseweb="tab-list"] { background-color: rgba(43,27,17,.94); border-radius: 8px; padding: 5px; }
-    .stTabs [data-baseweb="tab-highlight"] { background-color: transparent !important; }
-    .stTabs [data-baseweb="tab"] { color: rgba(255,255,255,.72) !important; font-weight: 500; background-color: transparent !important; border: none !important; }
+    /* Pestañas (Ocultar líneas rojas de Streamlit) */
+    .stTabs [data-baseweb="tab-list"] { background-color: rgba(43,27,17,.94); border-radius: 8px; padding: 5px; gap: 5px; }
+    .stTabs [data-baseweb="tab-highlight"] { display: none !important; }
+    .stTabs [data-baseweb="tab-border"] { display: none !important; }
+    
+    .stTabs [data-baseweb="tab"] { 
+        color: rgba(255,255,255,.72) !important; 
+        font-weight: 500; 
+        background-color: transparent !important; 
+        border: none !important; 
+        padding: 10px 16px;
+    }
     .stTabs [data-baseweb="tab"]:hover { color: #C8935A !important; }
     .stTabs [aria-selected="true"] { background-color: #C8935A !important; color: #2B1B11 !important; border-radius: 4px; }
     .stTabs [aria-selected="true"]:hover { color: #2B1B11 !important; }
@@ -32,103 +38,70 @@ custom_css = """
         background-color: #46613F !important; color: white !important; border-radius: 999px !important; font-weight: 600 !important; border: none !important; padding: 10px 24px !important;
     }
     
-    /* Cajas personalizadas para Teoría de Cambio */
-    .toc-box {
-        background-color: #FFFCF6;
-        border-left: 5px solid #8B5A2B;
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    }
-    .toc-title {
-        font-family: 'Fraunces', serif;
-        font-size: 20px;
-        color: #402A1C;
-        margin-bottom: 10px;
-        font-weight: 600;
-    }
+    .toc-box { background-color: #FFFCF6; border-left: 5px solid #8B5A2B; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .toc-title { font-family: 'Fraunces', serif; font-size: 20px; color: #402A1C; margin-bottom: 10px; font-weight: 600; }
     .toc-box.entonces { border-left-color: #46613F; }
     .toc-box.porque { border-left-color: #B8722A; }
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# --- CABECERA (HERO) ---
+# --- CABECERA ---
 st.markdown("<p style='font-family:monospace; color:#8B5A2B; font-weight:600; font-size:12px; text-transform:uppercase;'>— Fundación Luker · Manizales y Caldas</p>", unsafe_allow_html=True)
 st.markdown("<h1>De la emergencia al <em>territorio preparado</em></h1>", unsafe_allow_html=True)
 st.markdown("<p style='color:#6B5F50; font-size:16px; margin-bottom:20px;'>Un mismo lugar para levantar el diagnóstico, decidir qué ayuda se da y hacer seguimiento a lo que ese aporte deja instalado.</p>", unsafe_allow_html=True)
 
+# --- DATOS ---
 CSV_PATH = 'data/matriz_maestra.csv'
-def load_data():
-    if os.path.exists(CSV_PATH): return pd.read_csv(CSV_PATH)
+CSV_DIAG = 'data/diagnostico.csv'
+
+def load_data(path):
+    if os.path.exists(path): return pd.read_csv(path)
     return pd.DataFrame()
-df = load_data()
+
+df = load_data(CSV_PATH)
+df_d = load_data(CSV_DIAG)
 
 tab1, tab2, tab3, tab4 = st.tabs(["01 Teoría de Cambio", "02 Diagnóstico", "03 Registro de Ayudas", "04 Matriz MEL"])
 
 with tab1:
     st.header("Teoría de Cambio y Objetivos MEL")
-    st.markdown("El propósito de la intervención de **Fundación Luker** tras el sismo del 10 de agosto de 2026, estructurado a través de una hipótesis de impacto clara:")
-    
     st.markdown("""
-    <div class="toc-box">
-        <div class="toc-title">SI (Insumos y Actividades)</div>
-        Fundación Luker articula actores públicos, privados, de cooperación y comunitarios; identifica con rigor las necesidades diferenciales en cada línea; y canaliza recursos propios y de aliados hacia las brechas no cubiertas...
-    </div>
-    <div class="toc-box entonces">
-        <div class="toc-title">ENTONCES (Resultados e Impacto)</div>
-        Se reducirá el impacto del sismo sobre el bienestar del equipo, la población albergada, la red de salud, el patrimonio/legado institucional y, de forma prioritaria, la continuidad educativa de niños, niñas y jóvenes...
-    </div>
-    <div class="toc-box porque">
-        <div class="toc-title">PORQUE (Nuestra Propuesta de Valor)</div>
-        La Fundación aporta capacidad técnica de diagnóstico, articulación interinstitucional y movilización de recursos que complementa —sin duplicar— la respuesta pública y ciudadana.
-    </div>
+    <div class="toc-box"><div class="toc-title">SI (Insumos y Actividades)</div>Fundación Luker articula actores públicos, privados, de cooperación y comunitarios; identifica con rigor las necesidades diferenciales en cada línea; y canaliza recursos propios y de aliados hacia las brechas no cubiertas...</div>
+    <div class="toc-box entonces"><div class="toc-title">ENTONCES (Resultados e Impacto)</div>Se reducirá el impacto del sismo sobre el bienestar del equipo, la población albergada, la red de salud, el patrimonio/legado institucional y la continuidad educativa...</div>
+    <div class="toc-box porque"><div class="toc-title">PORQUE (Nuestra Propuesta de Valor)</div>La Fundación aporta capacidad técnica de diagnóstico, articulación interinstitucional y movilización de recursos que complementa la respuesta pública.</div>
     """, unsafe_allow_html=True)
-    
-    st.divider()
-    
-    colA, colB = st.columns([1.5, 1])
-    with colA:
-        st.subheader("Fases de la Intervención")
-        st.markdown("**1. Emergencia Inmediata (0–30 días, en curso)**")
-        st.caption("Monitoreo de alta frecuencia (semanal/diario), enfocado en necesidades y cobertura.")
-        st.markdown("**2. Estabilización (1–3 meses)**")
-        st.caption("Monitoreo quincenal/mensual y primeras evaluaciones de proceso.")
-        st.markdown("**3. Reconstrucción y Resiliencia (3–24 meses)**")
-        st.caption("Evaluación de medio término y final, indicadores de resultado/impacto, sistematización de aprendizajes.")
-    
-    with colB:
-        st.subheader("Objetivos del MEL")
-        st.markdown('''
-        * **O1.** Dar seguimiento continuo a las 5 líneas + relacionamiento.
-        * **O2.** Verificar el uso de recursos captados (campaña $1:$1).
-        * **O3.** Evaluar la articulación para evitar duplicidades.
-        * **O4.** Medir resultados, especialmente en la línea educativa (106 sedes).
-        * **O5.** Documentar aprendizajes para futuras respuestas a emergencias.
-        ''')
 
 with tab2:
     st.header("Diagnóstico General (Fase 1)")
-    st.markdown("Registro del alcance y acceso actual basado en el protocolo.")
-    if not df.empty:
-        c1, c2, c3, c4 = st.columns(4)
-        c1.metric("Líneas Activas", df['Linea_Accion'].nunique())
-        c2.metric("Total Necesidades Registradas", len(df))
-        c3.metric("Beneficiarios Estimados", int(df['Beneficiarios'].sum()))
-        c4.metric("Urgencia Alta", len(df[df['Urgencia'] == 'Alta']))
+    
+    with st.expander("+ Agregar Nuevo Diagnóstico", expanded=False):
+        with st.form("diag_form"):
+            col1, col2 = st.columns(2)
+            with col1:
+                linea_d = st.selectbox("Línea de Acción", ["Equipo y aliados", "Ayuda humanitaria", "Salud y salud mental", "Legado e instituciones religiosas", "Reconstrucción educativa", "Relacionamiento y recursos"], key="ld")
+                indicador_d = st.text_input("Indicador (ej. Sedes caracterizadas) *")
+            with col2:
+                valor_d = st.number_input("Valor Actual", min_value=0, value=0)
+                meta_d = st.number_input("Meta Esperada", min_value=1, value=1)
+            
+            submit_d = st.form_submit_button("Guardar Diagnóstico")
+            if submit_d and indicador_d:
+                pct = round((valor_d / meta_d) * 100, 2) if meta_d > 0 else 0
+                nueva_fila_d = {"Linea_Accion": linea_d, "Indicador": indicador_d, "Valor": valor_d, "Meta": meta_d, "Porcentaje": pct}
+                df_d = pd.concat([df_d, pd.DataFrame([nueva_fila_d])], ignore_index=True)
+                df_d.to_csv(CSV_DIAG, index=False)
+                st.success("Diagnóstico registrado!")
+                st.rerun()
+
+    if not df_d.empty:
+        st.subheader("Indicadores de Alcance y Acceso")
+        st.dataframe(df_d, use_container_width=True, hide_index=True)
         
         st.divider()
-        st.subheader("Registro de Diagnóstico (Protocolo)")
-        df_diag = df[df['Fase'] == 'Diagnóstico']
-        if not df_diag.empty:
-            st.dataframe(df_diag[['Necesidad', 'Linea_Accion', 'Urgencia', 'Atendido_Por', 'Brecha', 'Beneficiarios']], use_container_width=True, hide_index=True)
-        else:
-            st.info("No hay iniciativas en fase de Diagnóstico en este momento.")
-            
-        st.divider()
-        fig = px.pie(df, names='Linea_Accion', title='Distribución por Línea')
-        st.plotly_chart(fig, use_container_width=True)
+        fig_bar = px.bar(df_d, x='Indicador', y='Porcentaje', color='Linea_Accion', title='Avance de Diagnóstico (%)')
+        fig_bar.update_layout(yaxis_range=[0,100])
+        st.plotly_chart(fig_bar, use_container_width=True)
 
 with tab3:
     st.header("Registro de Ayudas")
