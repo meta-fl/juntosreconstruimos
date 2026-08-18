@@ -66,21 +66,54 @@ tab0, tab1, tab2, tab3, tab4 = st.tabs(["00 FunLuker en acción", "01 Teoría de
 with tab0:
     st.header("FunLuker en acción")
     st.markdown("""
-    Este escenario exige actuar con solidaridad, pero también con prudencia. La Fundación Luker no debe partir de una oferta predeterminada de recursos sino de una comprensión rigurosa de las necesidades y de la respuesta que ya están adelantando las autoridades, las entidades de socorro y otras organizaciones. El propósito inicial será, por tanto, entender antes de comprometer.
+    <div style="background-color: #FFFCF6; border: 1px solid #DCD3C2; border-radius: 12px; padding: 24px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(64,42,28,0.04);">
+        <p style="font-size: 18px; color: #402A1C; font-weight: 500; font-style: italic; margin: 0;">
+            "Este escenario exige actuar con solidaridad, pero también con prudencia. La Fundación Luker no debe partir de una oferta predeterminada de recursos sino de una comprensión rigurosa de las necesidades y de la respuesta que ya están adelantando las autoridades, las entidades de socorro y otras organizaciones. <strong style="color:#2B1B11;">El propósito inicial será, por tanto, entender antes de comprometer.</strong>"
+        </p>
+    </div>
     
-    ### 2. Objetivo del plan
-    • Contribuir a la atención y posterior recuperación de Manizales y Caldas frente a las afectaciones ocasionadas por el sismo del 10 de agosto de 2026, mediante una respuesta focalizada, ágil y complementaria a la acción pública, comunitaria y privada, basada en necesidades verificadas y en las capacidades de Fundación Luker y sus aliados.
+    <h3 style="color:#2B1B11; font-family:'Fraunces', serif; margin-top:10px; font-size:24px;">2. Objetivo del plan</h3>
+    <div class="toc-box entonces" style="margin-top: 15px;">
+        <strong style="font-size: 16px; color:#2B1B11;">Contribuir a la atención y posterior recuperación de Manizales y Caldas</strong> frente a las afectaciones ocasionadas por el sismo del 10 de agosto de 2026, mediante una respuesta focalizada, ágil y complementaria a la acción pública, comunitaria y privada, basada en necesidades verificadas y en las capacidades de Fundación Luker y sus aliados.
+        <hr style="border-color:#DCD3C2; margin:15px 0;">
+        <span style="font-size:14px; color:#6B5F50; line-height: 1.5;">Durante esta primera etapa el énfasis estará en diagnosticar, priorizar y articular, evitando generar expectativas de apoyo económico, reconstrucción o intervención antes de contar con información técnica suficiente. La Fundación buscará concentrarse en ámbitos en los que tenga vínculos, capacidades o posibilidades reales de generar valor y no en intentar responder de manera generalizada a todas las necesidades de la emergencia.</span>
+    </div>
     
-    Durante esta primera etapa el énfasis estará en diagnosticar, priorizar y articular, evitando generar expectativas de apoyo económico, reconstrucción o intervención antes de contar con información técnica suficiente. La Fundación buscará concentrarse en ámbitos en los que tenga vínculos, capacidades o posibilidades reales de generar valor y no en intentar responder de manera generalizada a todas las necesidades de la emergencia.
+    <h3 style="color:#2B1B11; font-family:'Fraunces', serif; margin-top:35px; margin-bottom:5px; font-size:24px;">3. Principios para la actuación</h3>
+    <p style="color:#6B5F50; margin-bottom: 20px; font-size:15px;">La respuesta de Fundación Luker se orientará por cinco criterios rectores:</p>
     
-    ### 3. Principios para la actuación
-    La respuesta de Fundación Luker se orientará por cinco criterios.
-    1. **Información antes que intervención.** Ninguna solicitud deberá convertirse automáticamente en un compromiso. Cada frente deberá verificar la situación, dimensionar la necesidad y presentar alternativas de respuesta.
-    2. **Complementariedad.** La Fundación deberá coordinarse con el Puesto de Mando Unificado, Alcaldía de Manizales, Gobernación de Caldas y las autoridades sectoriales correspondientes, procurando cubrir brechas y no duplicar acciones.
-    3. **Focalización.** Los recursos disponibles son limitados frente a la magnitud de la emergencia. Será necesario seleccionar intervenciones en las cuales el aporte de la Fundación pueda ser concreto y significativo.
-    4. **Protección de la vida y continuidad de servicios esenciales.** En la priorización tendrán mayor peso las situaciones relacionadas con seguridad de las personas, niños y jóvenes, atención en salud y necesidades humanitarias inmediatas.
-    5. **Comunicación prudente.** Mientras se realiza el diagnóstico, la comunicación institucional deberá señalar que Fundación Luker está evaluando posibles alternativas de apoyo. La identificación o visita a una institución no implicará un compromiso de financiación o intervención.
-    """)
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom:40px;">
+        <div style="background-color: #FFFCF6; border: 1px solid #DCD3C2; border-radius: 8px; padding: 20px; border-top: 4px solid #8B5A2B;">
+            <div style="color: #8B5A2B; font-weight: bold; font-family: monospace; font-size: 11px; margin-bottom: 8px;">PRINCIPIO 01</div>
+            <strong style="color: #402A1C; font-size: 16px;">Información antes que intervención</strong>
+            <p style="font-size: 13.5px; color: #6B5F50; margin-top: 8px; line-height: 1.45;">Ninguna solicitud deberá convertirse automáticamente en un compromiso. Cada frente deberá verificar la situación, dimensionar la necesidad y presentar alternativas de respuesta.</p>
+        </div>
+        
+        <div style="background-color: #FFFCF6; border: 1px solid #DCD3C2; border-radius: 8px; padding: 20px; border-top: 4px solid #46613F;">
+            <div style="color: #46613F; font-weight: bold; font-family: monospace; font-size: 11px; margin-bottom: 8px;">PRINCIPIO 02</div>
+            <strong style="color: #402A1C; font-size: 16px;">Complementariedad</strong>
+            <p style="font-size: 13.5px; color: #6B5F50; margin-top: 8px; line-height: 1.45;">La Fundación deberá coordinarse con el PMU, Alcaldía de Manizales, Gobernación de Caldas y autoridades sectoriales correspondientes, procurando cubrir brechas y no duplicar acciones.</p>
+        </div>
+        
+        <div style="background-color: #FFFCF6; border: 1px solid #DCD3C2; border-radius: 8px; padding: 20px; border-top: 4px solid #B8722A;">
+            <div style="color: #B8722A; font-weight: bold; font-family: monospace; font-size: 11px; margin-bottom: 8px;">PRINCIPIO 03</div>
+            <strong style="color: #402A1C; font-size: 16px;">Focalización</strong>
+            <p style="font-size: 13.5px; color: #6B5F50; margin-top: 8px; line-height: 1.45;">Los recursos disponibles son limitados frente a la magnitud de la emergencia. Será necesario seleccionar intervenciones en las cuales el aporte de la Fundación pueda ser concreto y significativo.</p>
+        </div>
+        
+        <div style="background-color: #FFFCF6; border: 1px solid #DCD3C2; border-radius: 8px; padding: 20px; border-top: 4px solid #2B1B11;">
+            <div style="color: #2B1B11; font-weight: bold; font-family: monospace; font-size: 11px; margin-bottom: 8px;">PRINCIPIO 04</div>
+            <strong style="color: #402A1C; font-size: 16px;">Protección de la vida</strong>
+            <p style="font-size: 13.5px; color: #6B5F50; margin-top: 8px; line-height: 1.45;">En la priorización tendrán mayor peso las situaciones relacionadas con seguridad de las personas, niños y jóvenes, atención en salud y necesidades humanitarias inmediatas.</p>
+        </div>
+        
+        <div style="background-color: #FFFCF6; border: 1px solid #DCD3C2; border-radius: 8px; padding: 20px; border-top: 4px solid #C8935A;">
+            <div style="color: #C8935A; font-weight: bold; font-family: monospace; font-size: 11px; margin-bottom: 8px;">PRINCIPIO 05</div>
+            <strong style="color: #402A1C; font-size: 16px;">Comunicación prudente</strong>
+            <p style="font-size: 13.5px; color: #6B5F50; margin-top: 8px; line-height: 1.45;">Mientras se realiza el diagnóstico, la comunicación deberá señalar que se evalúan alternativas. La identificación o visita a una institución no implicará un compromiso de financiación.</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ----------------------------
 # 1. TEORÍA DE CAMBIO
