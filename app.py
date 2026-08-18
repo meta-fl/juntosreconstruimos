@@ -16,49 +16,40 @@ custom_css = """
         font-family: 'Inter', sans-serif;
         color: #2B2620;
     }
-    
-    /* Fondo principal */
     .stApp { background-color: #EDE8DE; }
-    
-    /* Tipografía Títulos */
     h1, h2, h3 { font-family: 'Fraunces', serif !important; color: #2B1B11 !important; }
     h1 { font-size: clamp(30px,4.6vw,50px) !important; font-weight: 600 !important; }
     
-    /* Pestañas */
-    .stTabs [data-baseweb="tab-list"] { 
-        background-color: rgba(43,27,17,.94); 
-        border-radius: 8px; 
-        padding: 5px; 
-    }
-    .stTabs [data-baseweb="tab-highlight"] {
-        background-color: transparent !important;
-    }
-    .stTabs [data-baseweb="tab"] { 
-        color: rgba(255,255,255,.72) !important; 
-        font-weight: 500; 
-        background-color: transparent !important;
-        border: none !important;
-    }
-    .stTabs [data-baseweb="tab"]:hover {
-        color: #C8935A !important;
-    }
-    .stTabs [aria-selected="true"] { 
-        background-color: #C8935A !important; 
-        color: #2B1B11 !important; 
-        border-radius: 4px; 
-    }
-    .stTabs [aria-selected="true"]:hover {
-        color: #2B1B11 !important;
-    }
+    .stTabs [data-baseweb="tab-list"] { background-color: rgba(43,27,17,.94); border-radius: 8px; padding: 5px; }
+    .stTabs [data-baseweb="tab-highlight"] { background-color: transparent !important; }
+    .stTabs [data-baseweb="tab"] { color: rgba(255,255,255,.72) !important; font-weight: 500; background-color: transparent !important; border: none !important; }
+    .stTabs [data-baseweb="tab"]:hover { color: #C8935A !important; }
+    .stTabs [aria-selected="true"] { background-color: #C8935A !important; color: #2B1B11 !important; border-radius: 4px; }
+    .stTabs [aria-selected="true"]:hover { color: #2B1B11 !important; }
     
-    /* Tarjetas de Métricas */
     div[data-testid="stMetricValue"] { font-family: 'Fraunces', serif !important; color: #2B1B11 !important; font-size: 26px !important; }
-    
-    /* Botones */
     div.stButton > button:first-child, div.stFormSubmitButton > button:first-child {
-        background-color: #46613F !important; color: white !important;
-        border-radius: 999px !important; font-weight: 600 !important; border: none !important; padding: 10px 24px !important;
+        background-color: #46613F !important; color: white !important; border-radius: 999px !important; font-weight: 600 !important; border: none !important; padding: 10px 24px !important;
     }
+    
+    /* Cajas personalizadas para Teoría de Cambio */
+    .toc-box {
+        background-color: #FFFCF6;
+        border-left: 5px solid #8B5A2B;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .toc-title {
+        font-family: 'Fraunces', serif;
+        font-size: 20px;
+        color: #402A1C;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+    .toc-box.entonces { border-left-color: #46613F; }
+    .toc-box.porque { border-left-color: #B8722A; }
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
@@ -68,35 +59,54 @@ st.markdown("<p style='font-family:monospace; color:#8B5A2B; font-weight:600; fo
 st.markdown("<h1>De la emergencia al <em>territorio preparado</em></h1>", unsafe_allow_html=True)
 st.markdown("<p style='color:#6B5F50; font-size:16px; margin-bottom:20px;'>Un mismo lugar para levantar el diagnóstico, decidir qué ayuda se da y hacer seguimiento a lo que ese aporte deja instalado.</p>", unsafe_allow_html=True)
 
-# --- CARGA DE DATOS ---
 CSV_PATH = 'data/matriz_maestra.csv'
-
 def load_data():
     if os.path.exists(CSV_PATH): return pd.read_csv(CSV_PATH)
     return pd.DataFrame()
-
 df = load_data()
 
-# --- PESTAÑAS PRINCIPALES ---
 tab1, tab2, tab3, tab4 = st.tabs(["01 Teoría de Cambio", "02 Diagnóstico", "03 Registro de Ayudas", "04 Matriz MEL"])
 
 with tab1:
-    st.header("Teoría de Cambio (Síntesis)")
-    st.info("**SI** Fundación Luker articula actores públicos, privados y comunitarios; identifica necesidades con rigor; y canaliza recursos propios y de aliados hacia las brechas no cubiertas...")
-    st.success("**ENTONCES** se reducirá el impacto del sismo sobre el bienestar, la población albergada, la red de salud y la continuidad educativa...")
-    st.warning("**PORQUE** la Fundación aporta capacidad técnica de diagnóstico, articulación y movilización de recursos que complementa (sin duplicar) la respuesta pública y ciudadana.")
+    st.header("Teoría de Cambio y Objetivos MEL")
+    st.markdown("El propósito de la intervención de **Fundación Luker** tras el sismo del 10 de agosto de 2026, estructurado a través de una hipótesis de impacto clara:")
+    
+    st.markdown("""
+    <div class="toc-box">
+        <div class="toc-title">SI (Insumos y Actividades)</div>
+        Fundación Luker articula actores públicos, privados, de cooperación y comunitarios; identifica con rigor las necesidades diferenciales en cada línea; y canaliza recursos propios y de aliados hacia las brechas no cubiertas...
+    </div>
+    <div class="toc-box entonces">
+        <div class="toc-title">ENTONCES (Resultados e Impacto)</div>
+        Se reducirá el impacto del sismo sobre el bienestar del equipo, la población albergada, la red de salud, el patrimonio/legado institucional y, de forma prioritaria, la continuidad educativa de niños, niñas y jóvenes...
+    </div>
+    <div class="toc-box porque">
+        <div class="toc-title">PORQUE (Nuestra Propuesta de Valor)</div>
+        La Fundación aporta capacidad técnica de diagnóstico, articulación interinstitucional y movilización de recursos que complementa —sin duplicar— la respuesta pública y ciudadana.
+    </div>
+    """, unsafe_allow_html=True)
     
     st.divider()
-    colA, colB, colC = st.columns(3)
+    
+    colA, colB = st.columns([1.5, 1])
     with colA:
-        st.markdown("**1. Emergencia Inmediata (0-30 días)**")
-        st.caption("Monitoreo de alta frecuencia enfocado en necesidades y cobertura.")
-    with colB:
-        st.markdown("**2. Estabilización (1-3 meses)**")
+        st.subheader("Fases de la Intervención")
+        st.markdown("**1. Emergencia Inmediata (0–30 días, en curso)**")
+        st.caption("Monitoreo de alta frecuencia (semanal/diario), enfocado en necesidades y cobertura.")
+        st.markdown("**2. Estabilización (1–3 meses)**")
         st.caption("Monitoreo quincenal/mensual y primeras evaluaciones de proceso.")
-    with colC:
-        st.markdown("**3. Reconstrucción (3-24 meses)**")
-        st.caption("Evaluación de impacto, sistematización de aprendizajes y resiliencia.")
+        st.markdown("**3. Reconstrucción y Resiliencia (3–24 meses)**")
+        st.caption("Evaluación de medio término y final, indicadores de resultado/impacto, sistematización de aprendizajes.")
+    
+    with colB:
+        st.subheader("Objetivos del MEL")
+        st.markdown('''
+        * **O1.** Dar seguimiento continuo a las 5 líneas + relacionamiento.
+        * **O2.** Verificar el uso de recursos captados (campaña $1:$1).
+        * **O3.** Evaluar la articulación para evitar duplicidades.
+        * **O4.** Medir resultados, especialmente en la línea educativa (106 sedes).
+        * **O5.** Documentar aprendizajes para futuras respuestas a emergencias.
+        ''')
 
 with tab2:
     st.header("Diagnóstico General (Fase 1)")
