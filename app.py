@@ -1,4 +1,4 @@
-import streamlit as st
+﻿import streamlit as st
 import pandas as pd
 import plotly.express as px
 import os
@@ -44,23 +44,25 @@ st.markdown("<p style='color:#6B5F50; font-size:16px; margin-bottom:20px;'>Un mi
 
 # --- DATOS ---
 CSV_PATH = 'data/matriz_maestra.csv'
-CSV_DIAG = 'data/diagnostico.csv'
 
 def load_data(path):
     if os.path.exists(path): return pd.read_csv(path)
     return pd.DataFrame()
 
 df = load_data(CSV_PATH)
-df_d = load_data(CSV_DIAG)
 
-# Asegurar columnas si no existen (retrocompatibilidad)
+# Asegurar columnas
 if 'Evidencia_Diagnostico' not in df.columns:
     df['Evidencia_Diagnostico'] = 'No registrada'
 if 'Decision_Pendiente' not in df.columns:
     df['Decision_Pendiente'] = 'Por definir'
 
-tab1, tab2, tab3, tab4 = st.tabs(["01 Teoría de Cambio", "02 Diagnóstico", "03 Registro de Iniciativas", "04 Matriz MEL"])
+# --- TABS ---
+tab1, tab2, tab3, tab4 = st.tabs(["01 Teoría de Cambio", "02 Diagnóstico", "03 Iniciativa", "04 Matriz MEL"])
 
+# ----------------------------
+# 1. TEORÍA DE CAMBIO
+# ----------------------------
 with tab1:
     st.header("Teoría de Cambio y Objetivos MEL")
     st.markdown("""
@@ -69,39 +71,15 @@ with tab1:
     <div class="toc-box porque"><div class="toc-title">PORQUE (Nuestra Propuesta de Valor)</div>La Fundación aporta capacidad técnica de diagnóstico, articulación interinstitucional y movilización de recursos que complementa la respuesta pública.</div>
     """, unsafe_allow_html=True)
 
+# ----------------------------
+# 2. DIAGNÓSTICO (FORMULARIO ORIGINAL DE INICIATIVAS)
+# ----------------------------
 with tab2:
-    st.header("Diagnóstico General (Fase 1)")
-    with st.expander("+ Agregar Nuevo Diagnóstico", expanded=False):
-        with st.form("diag_form"):
-            col1, col2 = st.columns(2)
-            with col1:
-                linea_d = st.selectbox("Línea de Acción", ["Equipo y aliados", "Ayuda humanitaria", "Salud y salud mental", "Legado e instituciones religiosas", "Reconstrucción educativa", "Relacionamiento y recursos"], key="ld")
-                indicador_d = st.text_input("Indicador (ej. Sedes caracterizadas) *")
-            with col2:
-                valor_d = st.number_input("Valor Actual", min_value=0, value=0)
-                meta_d = st.number_input("Meta Esperada", min_value=1, value=1)
-            submit_d = st.form_submit_button("Guardar Diagnóstico")
-            if submit_d and indicador_d:
-                pct = round((valor_d / meta_d) * 100, 2) if meta_d > 0 else 0
-                nueva_fila_d = {"Linea_Accion": linea_d, "Indicador": indicador_d, "Valor": valor_d, "Meta": meta_d, "Porcentaje": pct}
-                df_d = pd.concat([df_d, pd.DataFrame([nueva_fila_d])], ignore_index=True)
-                df_d.to_csv(CSV_DIAG, index=False)
-                st.success("Diagnóstico registrado!")
-                st.rerun()
-
-    if not df_d.empty:
-        st.subheader("Indicadores de Alcance y Acceso")
-        st.dataframe(df_d, use_container_width=True, hide_index=True)
-        st.divider()
-        fig_bar = px.bar(df_d, x='Indicador', y='Porcentaje', color='Linea_Accion', title='Avance de Diagnóstico (%)')
-        fig_bar.update_layout(yaxis_range=[0,100])
-        st.plotly_chart(fig_bar, use_container_width=True)
-
-with tab3:
-    st.header("Registro de Iniciativas")
-    with st.expander("+ Registrar Nueva Iniciativa", expanded=False):
+    st.header("Fase de Diagnóstico")
+    st.markdown("Identificación de necesidades y evaluación de acceso y alcance actual (Plan preliminar).")
+    
+    with st.expander("+ Registrar Nuevo Diagnóstico (Iniciativa)", expanded=False):
         with st.form("registro_form"):
-            st.markdown("Completa los datos según el protocolo del plan preliminar:")
             col1, col2 = st.columns(2)
             with col1:
                 necesidad = st.text_input("Necesidad identificada *")
@@ -121,7 +99,7 @@ with tab3:
             with col4:
                 beneficiarios = st.number_input("Beneficiarios estimados", min_value=0, value=0)
             
-            submit = st.form_submit_button("Guardar Iniciativa")
+            submit = st.form_submit_button("Guardar Diagnóstico")
             if submit and necesidad and evidencia:
                 nuevo_id = df['ID'].max() + 1 if not df.empty else 1
                 nueva_fila = {
@@ -136,21 +114,17 @@ with tab3:
                 }
                 df = pd.concat([df, pd.DataFrame([nueva_fila])], ignore_index=True)
                 df.to_csv(CSV_PATH, index=False)
-                st.success("¡Iniciativa registrada!")
+                st.success("¡Diagnóstico registrado con éxito!")
                 st.rerun()
 
-    st.subheader("Iniciativas Actuales")
+    st.subheader("Registros de Diagnóstico Actuales")
     if not df.empty:
         f_linea = st.selectbox("Filtrar por Línea", ["Todas"] + list(df['Linea_Accion'].unique()))
         df_show = df[df['Linea_Accion'] == f_linea] if f_linea != "Todas" else df
         
-        # Mostrar exactamente las columnas solicitadas en la tabla
         columnas_mostrar = ['Necesidad', 'Evidencia_Diagnostico', 'Urgencia', 'Atendido_Por', 'Brecha', 'Aporte_Luker', 'Decision_Pendiente']
-        
-        # Asegurarnos de que existan para no romper la vista antigua
         for col in columnas_mostrar:
-            if col not in df_show.columns:
-                df_show[col] = "N/A"
+            if col not in df_show.columns: df_show[col] = "N/A"
                 
         st.dataframe(
             df_show[columnas_mostrar].rename(columns={
@@ -164,6 +138,16 @@ with tab3:
             use_container_width=True, hide_index=True
         )
 
+# ----------------------------
+# 3. INICIATIVA
+# ----------------------------
+with tab3:
+    st.header("Iniciativa (Por definir)")
+    st.info("Esta sección está en construcción. Aquí se gestionará la transición de la iniciativa a las siguientes fases (Priorización, Formalización).")
+
+# ----------------------------
+# 4. MATRIZ MEL
+# ----------------------------
 with tab4:
-    st.header("Matriz Completa")
-    st.dataframe(df, use_container_width=True)
+    st.header("Matriz MEL (Por definir)")
+    st.info("Esta sección está en construcción. Aquí se visualizarán los indicadores y el panel de seguimiento estructurado.")
