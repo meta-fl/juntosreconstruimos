@@ -1,0 +1,26 @@
+﻿{
+  "name": "meta-fl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev", "build": "next build", "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meta-fl/juntosrecontruimos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/meta-fl/juntosrecontruimos/issues"
+  },
+  "homepage": "https://github.com/meta-fl/juntosrecontruimos#readme",
+  "dependencies": {
+    "next": "^16.3.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}

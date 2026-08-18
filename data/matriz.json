@@ -1,0 +1,12 @@
+﻿[
+  {
+    "id": 1,
+    "linea": "salud",
+    "necesidad": "Ampliar Unidad de Neonatos SES (5 cubículos)",
+    "urgencia": "alta",
+    "quien_atiende": "Restrepo, Bancolombia, Amigos SES",
+    "brecha": "1 cubículo sin financiar",
+    "aporte": "Financiero directo",
+    "fase": "priorizacion"
+  }
+]
