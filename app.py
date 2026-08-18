@@ -25,9 +25,31 @@ custom_css = """
     h1 { font-size: clamp(30px,4.6vw,50px) !important; font-weight: 600 !important; }
     
     /* Pestañas */
-    .stTabs [data-baseweb="tab-list"] { background-color: rgba(43,27,17,.94); border-radius: 8px; padding: 5px; }
-    .stTabs [data-baseweb="tab"] { color: rgba(255,255,255,.72); font-weight: 500; }
-    .stTabs [aria-selected="true"] { background-color: #C8935A !important; color: #2B1B11 !important; border-radius: 4px; }
+    .stTabs [data-baseweb="tab-list"] { 
+        background-color: rgba(43,27,17,.94); 
+        border-radius: 8px; 
+        padding: 5px; 
+    }
+    .stTabs [data-baseweb="tab-highlight"] {
+        background-color: transparent !important;
+    }
+    .stTabs [data-baseweb="tab"] { 
+        color: rgba(255,255,255,.72) !important; 
+        font-weight: 500; 
+        background-color: transparent !important;
+        border: none !important;
+    }
+    .stTabs [data-baseweb="tab"]:hover {
+        color: #C8935A !important;
+    }
+    .stTabs [aria-selected="true"] { 
+        background-color: #C8935A !important; 
+        color: #2B1B11 !important; 
+        border-radius: 4px; 
+    }
+    .stTabs [aria-selected="true"]:hover {
+        color: #2B1B11 !important;
+    }
     
     /* Tarjetas de Métricas */
     div[data-testid="stMetricValue"] { font-family: 'Fraunces', serif !important; color: #2B1B11 !important; font-size: 26px !important; }
@@ -77,13 +99,23 @@ with tab1:
         st.caption("Evaluación de impacto, sistematización de aprendizajes y resiliencia.")
 
 with tab2:
-    st.header("Diagnóstico General")
+    st.header("Diagnóstico General (Fase 1)")
+    st.markdown("Registro del alcance y acceso actual basado en el protocolo.")
     if not df.empty:
         c1, c2, c3, c4 = st.columns(4)
         c1.metric("Líneas Activas", df['Linea_Accion'].nunique())
         c2.metric("Total Necesidades Registradas", len(df))
         c3.metric("Beneficiarios Estimados", int(df['Beneficiarios'].sum()))
         c4.metric("Urgencia Alta", len(df[df['Urgencia'] == 'Alta']))
+        
+        st.divider()
+        st.subheader("Registro de Diagnóstico (Protocolo)")
+        df_diag = df[df['Fase'] == 'Diagnóstico']
+        if not df_diag.empty:
+            st.dataframe(df_diag[['Necesidad', 'Linea_Accion', 'Urgencia', 'Atendido_Por', 'Brecha', 'Beneficiarios']], use_container_width=True, hide_index=True)
+        else:
+            st.info("No hay iniciativas en fase de Diagnóstico en este momento.")
+            
         st.divider()
         fig = px.pie(df, names='Linea_Accion', title='Distribución por Línea')
         st.plotly_chart(fig, use_container_width=True)
