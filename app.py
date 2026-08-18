@@ -1,4 +1,4 @@
-﻿import streamlit as st
+import streamlit as st
 import pandas as pd
 import plotly.express as px
 import os
@@ -48,7 +48,7 @@ st.markdown(custom_css, unsafe_allow_html=True)
 
 # --- CABECERA ---
 st.markdown("<p style='font-family:monospace; color:#8B5A2B; font-weight:600; font-size:12px; text-transform:uppercase;'>— Fundación Luker · Manizales y Caldas</p>", unsafe_allow_html=True)
-st.markdown("<h1>De la emergencia al <em>territorio preparado</em></h1>", unsafe_allow_html=True)
+st.markdown("<h1>Juntos reconstruimos</h1>", unsafe_allow_html=True)
 st.markdown("<p style='color:#6B5F50; font-size:16px; margin-bottom:20px;'>Un mismo lugar para levantar el diagnóstico, decidir qué ayuda se da y hacer seguimiento a lo que ese aporte deja instalado.</p>", unsafe_allow_html=True)
 
 # --- DATOS ---
